@@ -1,0 +1,111 @@
+package com.uma.intelligentsystems;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class Maze {
+    private final int rows;
+    private final int columns;
+    private final double ratioObstacles;
+
+    private final Random rand = new Random();
+
+    private final Cell[][] maze;
+
+    private Position initial;
+    private Position goal;
+
+    public Maze(int rows, int columns, double ratioObstacles) {
+        this.rows = rows;
+        this.columns = columns;
+        this.ratioObstacles = ratioObstacles;
+        maze = new Cell[rows][columns];
+        randomize();
+    }
+
+    private void randomize() {
+        clear();
+        int numberOfElements = (int) Math.floor(rows * columns * ratioObstacles + 2);
+        int currentRow = 0;
+        int currentColumn = 0;
+        for (int i = 0; i < numberOfElements; i++) {
+
+            currentRow = rand.nextInt(rows);
+            currentColumn = rand.nextInt(columns);
+
+            {
+                while (maze[currentRow][currentColumn] != Cell.EMPTY) {
+                    currentRow = rand.nextInt(rows);
+                    currentColumn = rand.nextInt(columns);
+                }
+
+                if (i == numberOfElements - 1) {
+                    set(currentRow, currentColumn, Cell.GOAL);
+                    goal = new Position(currentRow, currentColumn);
+                } else if (i == numberOfElements - 2) {
+                    set(currentRow, currentColumn, Cell.INITIAL);
+                    initial = new Position(currentRow, currentColumn);
+                } else {
+                    set(currentRow, currentColumn, Cell.OBSTACLE);
+                }
+            }
+        }
+        System.out.println("Goal is at position i:" + goal.i + " j: " + goal.j);
+    }
+
+    public void set(int r, int c, Cell cell) {
+        if (r >= 0 && c >= 0 && r < rows && c < columns) {
+            maze[r][c] = cell;
+        }
+    }
+
+    public Cell get(int r, int c) {
+        if (r >= 0 && r < this.rows && c >= 0 && c < this.columns) {
+            return maze[r][c];
+        }
+
+        return Cell.OBSTACLE;
+    }
+
+    public void clear() {
+        for (int i = 0; i < maze.length; i++) {
+            Arrays.fill(maze[i], Cell.EMPTY);
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append('|');
+        for (int i = 0; i < 80; i++) {
+            sb.append('-');
+        }
+
+        sb.append('|');
+        sb.append('\n');
+        for (int x = 0; x < rows; x++) {
+            sb.append('|');
+            for (int y = 0; y < columns; y++) {
+                sb.append(maze[x][y]);
+            }
+            sb.append("|\n");
+        }
+
+        sb.append("|");
+        for (int i = 0; i < 80; i++) {
+            sb.append('-');
+        }
+
+        sb.append("|");
+        return sb.toString();
+    }
+
+    public Position getInitial() {
+        return initial;
+    }
+
+    public Position getGoal() {
+        return goal;
+    }
+}
