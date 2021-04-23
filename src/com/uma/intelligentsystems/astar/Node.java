@@ -1,16 +1,19 @@
 package com.uma.intelligentsystems;
 
+import com.uma.intelligentsystems.maze.Cell;
+import com.uma.intelligentsystems.maze.Maze;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Node implements Comparable<Node> {
     private final Position goal;
-    private Position pos;
-    private double g;
-    private double h;
-    private Node parent;
-    private MazeMovement[] movements;
+    private final Position pos;
+    private final double g;
+    private final double h;
+    private final Node parent;
+    private final MazeMovement[] movements;
 
     public Node(Position pos, double g, Position goal, MazeMovement[] movements) {
        this.movements = movements;
@@ -60,7 +63,7 @@ public class Node implements Comparable<Node> {
             int i = this.getPosition().i + m.incX();
             int j = this.getPosition().j + m.incY();
             Cell cell = maze.get(i, j);
-            if(cell == Cell.EMPTY || cell == Cell.GOAL) {
+            if(cell != Cell.OBSTACLE && cell != Cell.INITIAL) {
                 Position pos = new Position(i, j);
                 double cost = calculateCost(this.pos, pos);
                 Node node = new Node(pos, this.g() + cost, goal, this);

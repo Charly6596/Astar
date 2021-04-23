@@ -5,7 +5,9 @@ public enum Cell {
     OBSTACLE('.'),
     GOAL('G'),
     INITIAL('I'),
-    OPTIMAL('X');
+    OPTIMAL('X'),
+    OPTIMAL_ALTERNATIVE1('1'),
+    OPTIMAL_ALTERNATIVE2('2');
 
     private char representation;
 

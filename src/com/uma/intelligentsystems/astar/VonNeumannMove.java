@@ -1,6 +1,6 @@
 package com.uma.intelligentsystems;
 
-public enum VonNeumanMove implements MazeMovement {
+public enum VonNeumannMove implements MazeMovement {
     UP(1, 0),
     RIGHT(0,1),
     DOWN(-1, 0),
@@ -9,7 +9,7 @@ public enum VonNeumanMove implements MazeMovement {
     private int x;
     private int y;
 
-    VonNeumanMove(int x, int y) {
+    VonNeumannMove(int x, int y) {
        this.x = x;
        this.y = y;
     }
@@ -22,5 +22,10 @@ public enum VonNeumanMove implements MazeMovement {
     @Override
     public int incY() {
         return y;
+    }
+
+    @Override
+    public String getName() {
+        return "Von Neumann movement";
     }
 }

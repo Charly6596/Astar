@@ -1,6 +1,7 @@
 package com.uma.intelligentsystems;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
 
 public class Maze {
@@ -8,7 +9,7 @@ public class Maze {
     private final int columns;
     private final double ratioObstacles;
 
-    private Random rand;
+    private final Random rand;
 
     private final Cell[][] maze;
 
@@ -22,6 +23,18 @@ public class Maze {
         this.ratioObstacles = ratioObstacles;
         maze = new Cell[rows][columns];
         randomize();
+    }
+
+    public void applyPath(Collection<Node> path) {
+        applyPath(path, Cell.OPTIMAL);
+    }
+    public void applyPath(Collection<Node> path, Cell pathMark) {
+        for(Node n : path) {
+            Position p = n.getPosition();
+            if(!p.equals(goal) && !p.equals(initial)) {
+                set(p.i, p.j, pathMark);
+            }
+        }
     }
 
     private void randomize() {
@@ -68,8 +81,8 @@ public class Maze {
     }
 
     public void clear() {
-        for (int i = 0; i < maze.length; i++) {
-            Arrays.fill(maze[i], Cell.EMPTY);
+        for (Cell[] cells : maze) {
+            Arrays.fill(cells, Cell.EMPTY);
         }
     }
 
@@ -78,7 +91,7 @@ public class Maze {
         StringBuilder sb = new StringBuilder();
 
         sb.append('|');
-        sb.append("-".repeat(80));
+        sb.append("-".repeat(columns));
         sb.append('|');
         sb.append('\n');
         for (int x = 0; x < rows; x++) {
@@ -90,7 +103,7 @@ public class Maze {
         }
 
         sb.append("|");
-        sb.append("-".repeat(80));
+        sb.append("-".repeat(columns));
         sb.append("|\n");
         return sb.toString();
     }

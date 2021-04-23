@@ -1,5 +1,7 @@
 package com.uma.intelligentsystems;
 
+import com.uma.intelligentsystems.maze.Maze;
+
 import java.util.*;
 
 public class AStar {
@@ -46,7 +48,6 @@ public class AStar {
                     openSet.add(neighbor);
                 }
 
-                // TODO: check tentative g and update node
                 // horizontal axis: % of obstacles
                 // vertical axis: min length of optimal path
                 // vertical axis 2: number of times path is not reached

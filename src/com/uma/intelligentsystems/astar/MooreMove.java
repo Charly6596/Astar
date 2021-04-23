@@ -26,4 +26,9 @@ public enum MooreMove implements MazeMovement {
     public int incY() {
         return y;
     }
+
+    @Override
+    public String getName() {
+        return "Moore movement";
+    }
 }
