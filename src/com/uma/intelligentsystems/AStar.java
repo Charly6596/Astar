@@ -15,11 +15,13 @@ public class AStar {
         Position start = maze.getInitial();
         Position goal = maze.getGoal();
 
-        Set<Node> closedSet = new HashSet<>();
+        Map<Position, Node> closedSet = new HashMap<>();
         Queue<Node> openSet = new PriorityQueue<>();
+        Map<Position, Node> openSetMap = new HashMap<>();
 
         Node firstNode = new Node(start, 0, goal, movements);
         openSet.offer(firstNode);
+        openSetMap.put(firstNode.getPosition(), firstNode);
 
         while (!openSet.isEmpty()) {
             Node current = openSet.poll();
@@ -27,13 +29,27 @@ public class AStar {
                 return current.toList();
             }
 
-            closedSet.add(current);
-            for (Node neighbor : current.generateNeighbors(maze)) {
-                if(closedSet.contains(neighbor)) continue;
+            closedSet.put(current.getPosition(), current);
+            openSetMap.remove(current.getPosition());
 
-                if(!openSet.contains(neighbor)) {
+            for (Node neighbor : current.generateNeighbors(maze)) {
+                if(closedSet.containsKey(neighbor.getPosition())) continue;
+
+                Node n = openSetMap.getOrDefault(neighbor.getPosition(), null);
+                if(n == null || neighbor.g() < n.g()) {
+                    // We need to remove it if we want to update its order
+                    if (openSetMap.containsKey(neighbor.getPosition())) {
+                        openSet.remove(neighbor);
+                    }
+
+                    openSetMap.put(neighbor.getPosition(), neighbor);
                     openSet.add(neighbor);
                 }
+
+                // TODO: check tentative g and update node
+                // horizontal axis: % of obstacles
+                // vertical axis: min length of optimal path
+                // vertical axis 2: number of times path is not reached
             }
         }
        return null;

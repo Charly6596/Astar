@@ -8,14 +8,15 @@ public class Maze {
     private final int columns;
     private final double ratioObstacles;
 
-    private final Random rand = new Random();
+    private Random rand;
 
     private final Cell[][] maze;
 
     private Position initial;
     private Position goal;
 
-    public Maze(int rows, int columns, double ratioObstacles) {
+    public Maze(int rows, int columns, double ratioObstacles, Random rand) {
+        this.rand = rand;
         this.rows = rows;
         this.columns = columns;
         this.ratioObstacles = ratioObstacles;
@@ -50,7 +51,6 @@ public class Maze {
                 }
             }
         }
-        System.out.println("Goal is at position i:" + goal.i + " j: " + goal.j);
     }
 
     public void set(int r, int c, Cell cell) {
@@ -78,10 +78,7 @@ public class Maze {
         StringBuilder sb = new StringBuilder();
 
         sb.append('|');
-        for (int i = 0; i < 80; i++) {
-            sb.append('-');
-        }
-
+        sb.append("-".repeat(80));
         sb.append('|');
         sb.append('\n');
         for (int x = 0; x < rows; x++) {
@@ -93,11 +90,8 @@ public class Maze {
         }
 
         sb.append("|");
-        for (int i = 0; i < 80; i++) {
-            sb.append('-');
-        }
-
-        sb.append("|");
+        sb.append("-".repeat(80));
+        sb.append("|\n");
         return sb.toString();
     }
 

@@ -7,12 +7,12 @@ import java.util.Objects;
 public class Node implements Comparable<Node> {
     private final Position goal;
     private Position pos;
-    private int g;
-    private int h;
+    private double g;
+    private double h;
     private Node parent;
     private MazeMovement[] movements;
 
-    public Node(Position pos, int g, Position goal, MazeMovement[] movements) {
+    public Node(Position pos, double g, Position goal, MazeMovement[] movements) {
        this.movements = movements;
         this.pos = pos;
         this.g = g;
@@ -21,7 +21,7 @@ public class Node implements Comparable<Node> {
         this.h = pos.manhattanDistanceTo(goal);
     }
 
-    public Node(Position pos, int g, Position goal, Node parent) {
+    public Node(Position pos, double g, Position goal, Node parent) {
         this.pos = pos;
         this.g = g;
         this.goal = goal;
@@ -34,24 +34,24 @@ public class Node implements Comparable<Node> {
         return pos.equals(goal);
     }
 
-    public Node getParent() {
-        return parent;
-    }
-
-    public int g() {
+    public double g() {
         return g;
     }
 
-    public int h() {
+    public double h() {
         return h;
     }
 
-    public int f() {
+    public double f() {
         return this.g() + this.h();
     }
 
     public Position getPosition() {
         return pos;
+    }
+
+    private double calculateCost(Position oldPos, Position newPos) {
+        return Math.sqrt(Math.abs(oldPos.i - newPos.i) + Math.abs(oldPos.j - newPos.j));
     }
 
     public List<Node> generateNeighbors(Maze maze) {
@@ -62,7 +62,8 @@ public class Node implements Comparable<Node> {
             Cell cell = maze.get(i, j);
             if(cell == Cell.EMPTY || cell == Cell.GOAL) {
                 Position pos = new Position(i, j);
-                Node node = new Node(pos, this.g() + 1, goal, this);
+                double cost = calculateCost(this.pos, pos);
+                Node node = new Node(pos, this.g() + cost, goal, this);
                 result.add(node);
             }
         }
@@ -82,7 +83,7 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node node) {
-        return Integer.compare(f(), node.f());
+        return Double.compare(f(), node.f());
     }
 
     @Override

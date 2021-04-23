@@ -3,20 +3,12 @@ package com.uma.intelligentsystems;
 import java.util.Objects;
 
 public class Position {
-    int i;
-    int j;
+    public final int i;
+    public final int j;
 
     public Position(int i, int j) {
         this.i = i;
         this.j = j;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public int getJ() {
-        return j;
     }
 
     public int manhattanDistanceTo(Position p) {
