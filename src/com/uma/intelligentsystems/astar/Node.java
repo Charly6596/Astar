@@ -1,5 +1,6 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.astar;
 
+import com.uma.intelligentsystems.maze.Position;
 import com.uma.intelligentsystems.maze.Cell;
 import com.uma.intelligentsystems.maze.Maze;
 

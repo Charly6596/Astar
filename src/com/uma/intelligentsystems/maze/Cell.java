@@ -1,4 +1,4 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.maze;
 
 public enum Cell {
     EMPTY(' '),
@@ -9,7 +9,7 @@ public enum Cell {
     OPTIMAL_ALTERNATIVE1('1'),
     OPTIMAL_ALTERNATIVE2('2');
 
-    private char representation;
+    private final char representation;
 
     Cell(char representation) {
         this.representation = representation;

@@ -1,4 +1,6 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.maze;
+
+import com.uma.intelligentsystems.astar.Node;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,9 +27,6 @@ public class Maze {
         randomize();
     }
 
-    public void applyPath(Collection<Node> path) {
-        applyPath(path, Cell.OPTIMAL);
-    }
     public void applyPath(Collection<Node> path, Cell pathMark) {
         for(Node n : path) {
             Position p = n.getPosition();
@@ -40,12 +39,10 @@ public class Maze {
     private void randomize() {
         clear();
         int numberOfElements = (int) Math.floor(rows * columns * ratioObstacles + 2);
-        int currentRow = 0;
-        int currentColumn = 0;
         for (int i = 0; i < numberOfElements; i++) {
 
-            currentRow = rand.nextInt(rows);
-            currentColumn = rand.nextInt(columns);
+            int currentRow = rand.nextInt(rows);
+            int currentColumn = rand.nextInt(columns);
 
             {
                 while (maze[currentRow][currentColumn] != Cell.EMPTY) {

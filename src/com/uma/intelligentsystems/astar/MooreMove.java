@@ -1,4 +1,4 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.astar;
 
 public enum MooreMove implements MazeMovement {
     UP ( 1,  0),
@@ -10,8 +10,8 @@ public enum MooreMove implements MazeMovement {
     WEST  ( 0, -1),
     NORTH_WEST(1, -1);
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     MooreMove(int x, int y) {
        this.x = x;
        this.y = y;

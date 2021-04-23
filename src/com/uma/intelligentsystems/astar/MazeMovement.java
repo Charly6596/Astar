@@ -1,4 +1,4 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.astar;
 
 public interface MazeMovement {
     int incX();

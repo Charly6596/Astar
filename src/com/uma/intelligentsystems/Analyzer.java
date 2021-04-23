@@ -1,6 +1,8 @@
-package com.uma.intelligentsystems.analyzer;
+package com.uma.intelligentsystems;
 
-import com.uma.intelligentsystems.*;
+import com.uma.intelligentsystems.astar.AStar;
+import com.uma.intelligentsystems.astar.MazeMovement;
+import com.uma.intelligentsystems.astar.Node;
 import com.uma.intelligentsystems.maze.Cell;
 import com.uma.intelligentsystems.maze.Maze;
 
@@ -104,19 +106,19 @@ public class Analyzer {
         AStar aStar2 = new AStar(m, movements2);
         var res2 = aStar2.solve();
 
-        m.applyPath(res1, Cell.OPTIMAL_ALTERNATIVE1);
-        m.applyPath(res2, Cell.OPTIMAL_ALTERNATIVE2);
 
         if(res1 == null) {
             System.out.printf("Could not find a valid path for %s\n", name1);
         } else {
             System.out.printf("%s length: %f\n", name1, res1.stream().findFirst().get().g());
+            m.applyPath(res1, Cell.OPTIMAL_ALTERNATIVE1);
         }
 
         if(res2 == null) {
             System.out.printf("Could not find a valid path for %s\n", name2);
         } else {
             System.out.printf("%s length: %f\n", name2, res2.stream().findFirst().get().g());
+            m.applyPath(res2, Cell.OPTIMAL_ALTERNATIVE2);
         }
 
         System.out.println(m);

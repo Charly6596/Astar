@@ -1,4 +1,4 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.astar;
 
 public enum VonNeumannMove implements MazeMovement {
     UP(1, 0),
@@ -6,8 +6,8 @@ public enum VonNeumannMove implements MazeMovement {
     DOWN(-1, 0),
     LEFT(0, -1);
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     VonNeumannMove(int x, int y) {
        this.x = x;

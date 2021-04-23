@@ -1,12 +1,15 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.astar;
 
+import com.uma.intelligentsystems.astar.MazeMovement;
+import com.uma.intelligentsystems.astar.Node;
 import com.uma.intelligentsystems.maze.Maze;
+import com.uma.intelligentsystems.maze.Position;
 
 import java.util.*;
 
 public class AStar {
-    private Maze maze;
-    private MazeMovement[] movements;
+    private final Maze maze;
+    private final MazeMovement[] movements;
 
     public AStar(Maze maze, MazeMovement[] movements) {
         this.maze = maze;

@@ -1,4 +1,4 @@
-package com.uma.intelligentsystems;
+package com.uma.intelligentsystems.maze;
 
 import java.util.Objects;
 
