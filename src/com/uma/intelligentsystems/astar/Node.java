@@ -16,22 +16,17 @@ public class Node implements Comparable<Node> {
     private final Node parent;
     private final MazeMovement[] movements;
 
-    public Node(Position pos, double g, Position goal, MazeMovement[] movements) {
+    public Node(Position pos, double g, Position goal, Node parent, MazeMovement[] movements) {
        this.movements = movements;
         this.pos = pos;
         this.g = g;
         this.goal = goal;
-        this.parent = null;
-        this.h = pos.manhattanDistanceTo(goal);
+        this.parent = parent;
+        this.h = pos.euclideanDistanceTo(goal);
     }
 
     public Node(Position pos, double g, Position goal, Node parent) {
-        this.pos = pos;
-        this.g = g;
-        this.goal = goal;
-        this.parent = parent;
-        this.h = pos.manhattanDistanceTo(goal);
-        this.movements = parent.movements;
+        this(pos, g, goal, parent, parent.movements);
     }
 
     public Boolean isGoal() {
@@ -54,10 +49,6 @@ public class Node implements Comparable<Node> {
         return pos;
     }
 
-    private double calculateCost(Position oldPos, Position newPos) {
-        return Math.sqrt(Math.abs(oldPos.i - newPos.i) + Math.abs(oldPos.j - newPos.j));
-    }
-
     public List<Node> generateNeighbors(Maze maze) {
         List<Node> result = new ArrayList<>(movements.length);
         for(MazeMovement m : movements) {
@@ -66,7 +57,7 @@ public class Node implements Comparable<Node> {
             Cell cell = maze.get(i, j);
             if(cell != Cell.OBSTACLE && cell != Cell.INITIAL) {
                 Position pos = new Position(i, j);
-                double cost = calculateCost(this.pos, pos);
+                double cost = this.pos.euclideanDistanceTo(pos);
                 Node node = new Node(pos, this.g() + cost, goal, this);
                 result.add(node);
             }

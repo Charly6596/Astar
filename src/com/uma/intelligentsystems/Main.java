@@ -11,9 +11,8 @@ public class Main {
     final static int COLM = 80;
 
     final static int TIMES = 10000;
-
     public static void main(String[] args) {
-        Random rand = new Random(4);
+        Random rand = new Random(7);
 
         Analyzer analyzer = new Analyzer(rand, ROWS, COLM);
         analyzer.compareMovements(VonNeumannMove.values(), MooreMove.values());
@@ -23,6 +22,4 @@ public class Main {
         rand.setSeed(100);
         analyzer.run("lengths_moore.csv","failures_moore.csv", TIMES, MooreMove.values());
     }
-
-
 }

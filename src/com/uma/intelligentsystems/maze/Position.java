@@ -11,8 +11,16 @@ public class Position {
         this.j = j;
     }
 
-    public int manhattanDistanceTo(Position p) {
+    public double manhattanDistanceTo(Position p) {
         return Math.abs(p.i - this.i) + Math.abs(p.j - this.j);
+    }
+
+    public double euclideanDistanceTo(Position p) {
+        return Math.sqrt(Math.pow(p.i - this.i, 2) + Math.pow(p.j - this.j, 2));
+    }
+
+    public double chebyshevDistanceTo(Position p){
+        return Math.max(Math.abs(this.i - p.i), Math.abs(this.j - p.j));
     }
 
     @Override

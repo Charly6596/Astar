@@ -24,7 +24,7 @@ public class AStar {
         Queue<Node> openSet = new PriorityQueue<>();
         Map<Position, Node> openSetMap = new HashMap<>();
 
-        Node firstNode = new Node(start, 0, goal, movements);
+        Node firstNode = new Node(start, 0, goal, null, movements);
         openSet.offer(firstNode);
         openSetMap.put(firstNode.getPosition(), firstNode);
 
